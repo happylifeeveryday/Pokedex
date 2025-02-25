@@ -19,7 +19,7 @@ func TestCleanInput(t *testing.T){
 		},
 	}
 	for _,c := range cases{
-		actual := CleanInput(c.input)
+		actual := cleanInput(c.input)
 		if len(actual) != len(c.expected) {
 			t.Errorf("Length mismatch：input '%s' expected length %d actual length %d", 
 				c.input, len(c.expected), len(actual))
