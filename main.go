@@ -1,15 +1,24 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
-func main(){
-	fmt.Printf("Hello, World!")
+func main() {
+	for {
+		scanner := bufio.NewScanner(os.Stdin)
+		fmt.Print("Pokedex > ")
+		scanner.Scan()
+		input := scanner.Text()
+		formatted := cleanInput(input)[0]
+		fmt.Printf("Your command was: %v\n", formatted)
+	}
 }
 
-func cleanInput(text string) []string{
+func cleanInput(text string) []string {
 	// Trim leading/trailing whitespace and convert the text to lowercase
 	text = strings.TrimSpace(text)
 	text = strings.ToLower(text)
