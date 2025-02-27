@@ -9,7 +9,10 @@ import (
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
-	cfg := &config{}
+	cfg := &config{
+		Next:     "https://pokeapi.co/api/v2/location-area",
+		Previous: "https://pokeapi.co/api/v2/location-area",
+	}
 	for {
 		fmt.Print("Pokedex > ")
 		reader.Scan()

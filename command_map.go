@@ -7,7 +7,8 @@ import (
 )
 
 func commandMap(cfg *config) error {
-	url := "https://pokeapi.co/api/v2/location-area"
+	cfg.Previous = cfg.Next
+	url := cfg.Next
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return err
@@ -27,6 +28,7 @@ func commandMap(cfg *config) error {
 	for _, location := range locationData.Results {
 		fmt.Println(location.Name)
 	}
+	cfg.Next = locationData.Next
 	return nil
 }
 
