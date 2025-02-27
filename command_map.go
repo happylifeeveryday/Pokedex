@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func commandMap() error {
+func commandMap(cfg *config) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
