@@ -51,7 +51,7 @@ func (c *Cache) Add(key string, val []byte) {
 func (c *Cache) Get(key string) ([]byte, bool, error) {
 	c.mu.RLock()
 	tempCacheEntry := c.data[key]
-	c.mu.RLock()
+	c.mu.RUnlock()
 	if tempCacheEntry.createdAt != (time.Time{}) {
 		return tempCacheEntry.val, true, nil
 	} else {
@@ -69,9 +69,7 @@ func (c *Cache) Get(key string) ([]byte, bool, error) {
 		if err != nil {
 			return nil, false, err
 		}
-		c.mu.Lock()
 		c.Add(key, byteRes)
-		c.mu.Unlock()
 		return byteRes, false, nil
 	}
 }
