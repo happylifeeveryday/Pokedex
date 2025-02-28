@@ -24,6 +24,7 @@ func NewCache(interval time.Duration) *Cache {
 		mu:       &sync.RWMutex{},
 		interval: interval,
 	}
+	go (&cache).reapLoop()
 	return &cache
 }
 
@@ -75,4 +76,16 @@ func (c *Cache) Get(key string) ([]byte, bool, error) {
 	}
 }
 
-func (c *Cache) reapLoop()
+func (c *Cache) reapLoop() {
+	ticker := time.NewTicker(c.interval)
+	defer ticker.Stop()
+	for range ticker.C {
+		c.mu.Lock()
+		for key, value := range c.data {
+			if time.Since(value.createdAt) > c.interval {
+				delete(c.data, key)
+			}
+		}
+		c.mu.Unlock()
+	}
+}

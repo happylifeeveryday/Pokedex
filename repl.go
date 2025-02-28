@@ -5,7 +5,12 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/happylifeeveryday/Pokedex/pokecache"
 )
+
+var Cache = pokecache.NewCache(5 * time.Second)
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
