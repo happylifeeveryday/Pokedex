@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func commandMap(cfg *config) error {
-	url := cfg.Next
+func commandMapb(cfg *config) error {
+	url := cfg.Previous
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return err
@@ -30,16 +30,4 @@ func commandMap(cfg *config) error {
 	cfg.Next = locationData.Next
 	cfg.Previous = locationData.Previous
 	return nil
-}
-
-type locationResponse struct {
-	Count    int        `json:"count"`
-	Next     string     `json:"next"`
-	Previous string     `json:"previous"`
-	Results  []location `json:"results"`
-}
-
-type location struct {
-	Name string `json:"name"`
-	Url  string `json:"json"`
 }
