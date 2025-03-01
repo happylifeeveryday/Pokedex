@@ -7,7 +7,7 @@ import (
 
 func commandMapb(cfg *config) error {
 	url := cfg.Previous
-	byteData, _, _ := MapCache.Get(url)
+	byteData, _, _ := Cache.Get(url)
 	var locationData locationResponse
 	json.Unmarshal(byteData, &locationData)
 	for _, location := range locationData.Results {

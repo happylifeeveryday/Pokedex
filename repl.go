@@ -10,7 +10,7 @@ import (
 	"github.com/happylifeeveryday/Pokedex/pokecache"
 )
 
-var MapCache = pokecache.NewCache(600 * time.Second)
+var Cache = pokecache.NewCache(600 * time.Second)
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
@@ -28,6 +28,16 @@ func startRepl() {
 		}
 
 		commandName := words[0]
+		if commandName == "explore" {
+			if len(words) == 2 {
+				parameter := words[1]
+				cfg.Parameter = parameter
+			} else {
+				fmt.Println("Wrong parameter")
+				continue
+			}
+		}
+
 		command, exist := getCommands()[commandName]
 		if exist {
 			command.callback(cfg)
@@ -50,8 +60,9 @@ type cliCommand struct {
 }
 
 type config struct {
-	Next     string
-	Previous string
+	Next      string
+	Previous  string
+	Parameter string
 }
 
 func getCommands() map[string]cliCommand {
@@ -75,6 +86,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Displays previous 20 locations",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Explore location",
+			callback:    commandExplore,
 		},
 	}
 }
