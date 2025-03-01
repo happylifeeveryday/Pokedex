@@ -10,7 +10,7 @@ import (
 	"github.com/happylifeeveryday/Pokedex/pokecache"
 )
 
-var Cache = pokecache.NewCache(600 * time.Second)
+var MapCache = pokecache.NewCache(600 * time.Second)
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
