@@ -11,6 +11,7 @@ import (
 )
 
 var Cache = pokecache.NewCache(600 * time.Second)
+var Pokedex = make(map[string]Pokemon)
 
 func startRepl() {
 	reader := bufio.NewScanner(os.Stdin)
@@ -28,7 +29,7 @@ func startRepl() {
 		}
 
 		commandName := words[0]
-		if commandName == "explore" {
+		if commandName == "explore" || commandName == "catch" {
 			if len(words) == 2 {
 				parameter := words[1]
 				cfg.Parameter = parameter
@@ -91,6 +92,11 @@ func getCommands() map[string]cliCommand {
 			name:        "explore",
 			description: "Explore location",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Catch a Pokemon",
+			callback:    commandCatch,
 		},
 	}
 }
