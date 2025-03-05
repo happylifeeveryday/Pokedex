@@ -29,7 +29,7 @@ func startRepl() {
 		}
 
 		commandName := words[0]
-		if commandName == "explore" || commandName == "catch" {
+		if commandName == "explore" || commandName == "catch" || commandName == "inspect" {
 			if len(words) == 2 {
 				parameter := words[1]
 				cfg.Parameter = parameter
@@ -97,6 +97,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Catch a Pokemon",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "inspect Pokemon info in Pokedex",
+			callback:    commandInspect,
 		},
 	}
 }
